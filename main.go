@@ -21,6 +21,11 @@ func main() {
 		DetectDotGit: true,
 	}
 
+	if err := opts.Validate(); err != nil {
+		fmt.Fprintf(os.Stderr, "could not validate git options: %v", err)
+		return
+	}
+
 	repo, err := git.PlainOpenWithOptions(wd, opts)
 	if err != nil {
 		fmt.Fprintf(os.Stderr, "could not open git repo at '%s': %v", wd, err)
